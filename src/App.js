@@ -112,7 +112,7 @@ class App extends Component {
 
     return (
       <Fragment>
-        <GlobalStyle />
+        <GlobalStyles />
         <AppBlock className="App">
           <TopBar />
           <Header />
