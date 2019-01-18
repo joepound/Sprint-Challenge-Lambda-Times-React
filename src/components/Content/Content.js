@@ -10,7 +10,7 @@ export default class Content extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: "all",
+      selectedTab: "all",
       tabs: [],
       cards: []
     };
@@ -30,7 +30,8 @@ export default class Content extends Component {
 
   // Event-based methods
 
-  changeSelected(tab) {
+  changeSelectedTab(selectedTab) {
+    this.setState({ selectedTab });
     // this function should take in the tab and update the state with the new tab.
   }
 
@@ -53,7 +54,7 @@ export default class Content extends Component {
   // Event handler methods
 
   handleClick = e => {
-    switch (e.currentTarget.name) {
+    switch (e.currentTarget.name || e.currentTarget.dataset.click) {
       case "tab-selection":
         this.changeSelectedTab(e.currentTarget.dataset.tab);
         break;
@@ -72,7 +73,7 @@ export default class Content extends Component {
         */}
         <Tabs
           tabs={this.state.tabs}
-          selectedTab={this.state.selected}
+          selectedTab={this.state.selectedTab}
           handleClick={this.handleClick}
         />
         <Cards cards={this.state.cards} />

@@ -8,15 +8,11 @@ const Tab = props => {
 
   return (
     <div
-      className={
-        props.selectedTab === props.tabName || props.selectedTab === "all"
-          ? "tab active-tab"
-          : "tab"
-      }
+      className={props.selectedTab === props.tabName ? "tab active-tab" : "tab"}
       /* Replace this dummy click handler function with your selectTabHandler function from props 
          you'll need to pass the `tab` in as an argument to this handler. -> everything needed will be in the event */
-      name="tab-selection"
-      data-tab={props.tab}
+      data-click="tab-selection"
+      data-tab={props.tabName}
       onClick={props.handleClick}
     >
       {props.tabName.toUpperCase()}
