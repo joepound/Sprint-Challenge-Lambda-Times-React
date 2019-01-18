@@ -3,10 +3,11 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 import Tabs from "./Tabs";
+import Carousel from "../Carousel/Carousel";
 import Cards from "./Cards";
 
 // Importing our tab and card data. No need to change anything here.
-import { tabData, cardData } from "../../data";
+import { tabData, carouselData, cardData } from "../../data";
 
 export default class Content extends Component {
   constructor(props) {
@@ -14,6 +15,8 @@ export default class Content extends Component {
     this.state = {
       selectedTab: "all",
       tabs: [],
+      currentCarouselIndex: 0,
+      carouselImages: [],
       cards: []
     };
   }
@@ -22,10 +25,12 @@ export default class Content extends Component {
 
   componentDidMount() {
     // Once the component has mounted, get the data and reflect that data on the state.
-    const tabs = tabData,
-      cards = cardData;
+    const tabs = tabData;
+    const carouselImages = carouselData;
+    const cards = cardData;
     this.setState({
       tabs,
+      carouselImages,
       cards
     });
   }
@@ -55,12 +60,38 @@ export default class Content extends Component {
     this.setState({ selectedTab, cards: this.filterCards(selectedTab) });
   }
 
+  carouselSlideLeft() {
+    this.setState(prevState => ({
+      currentCarouselIndex:
+        prevState.currentCarouselIndex === 0
+          ? this.state.carouselImages.length - 1
+          : prevState.currentCarouselIndex - 1
+    }));
+  }
+
+  carouselSlideRight() {
+    this.setState(prevState => ({
+      currentCarouselIndex:
+        prevState.currentCarouselIndex === this.state.carouselImages.length - 1
+          ? 0
+          : prevState.currentCarouselIndex + 1
+    }));
+  }
+
   // Event handler methods
 
   handleClick = e => {
     switch (e.currentTarget.name || e.currentTarget.dataset.click) {
       case "tab-selection":
         this.changeSelectedTab(e.currentTarget.dataset.tab);
+        break;
+
+      case "carousel-left-btn":
+        this.carouselSlideLeft();
+        break;
+
+      case "carousel-right-btn":
+        this.carouselSlideRight();
         break;
     }
   };
@@ -82,8 +113,14 @@ export default class Content extends Component {
           * and `selectTabHandler` that includes the function to change the selected tab -> will do this with an event handler instead
         */}
         <Tabs
-          tabs={this.state.tabs}
           selectedTab={this.state.selectedTab}
+          tabs={this.state.tabs}
+          handleClick={this.handleClick}
+        />
+        <Carousel
+          currentCarouselImg={
+            this.state.carouselImages[this.state.currentCarouselIndex]
+          }
           handleClick={this.handleClick}
         />
         <Cards cards={this.state.cards} />
