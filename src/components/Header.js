@@ -1,12 +1,12 @@
 import React from "react";
 
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 // Refactor this component to use styled components and not classNames.
 // You can find the corresponding CSS in the CSS/index.css file
 
-const Header = () => {
-  const LambdaTimesHeader = styled.div`
+const Header = props => {
+  const HeaderBlock = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -23,14 +23,14 @@ const Header = () => {
     }
   `;
 
-  const HeaderData = styled.span`
+  const HeaderSpan = styled.span`
     align-self: flex-end;
     font-size: 11px;
     font-weight: bold;
     letter-spacing: 1px;
   `;
 
-  const Date = styled(HeaderData)`
+  const Date = styled(HeaderSpan)`
     margin-left: 25px;
     flex: 1;
   `;
@@ -44,18 +44,18 @@ const Header = () => {
     color: #000;
   `;
 
-  const Temperature = styled(HeaderData)`
+  const Temperature = styled(HeaderSpan)`
     text-align: right;
     margin-right: 25px;
     flex: 1;
   `;
 
   return (
-    <LambdaTimesHeader>
+    <HeaderBlock>
       <Date>SMARCH 32, 2018</Date>
       <TitleHeading>Lambda Times</TitleHeading>
       <Temperature>98°</Temperature>
-    </LambdaTimesHeader>
+    </HeaderBlock>
   );
 };
 
