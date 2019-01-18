@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import styled from "styled-components";
+
 import Tabs from "./Tabs";
 import Cards from "./Cards";
 
@@ -64,8 +66,14 @@ export default class Content extends Component {
   };
 
   render() {
+    const ContentBlock = styled.div`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    `;
+
     return (
-      <div className="content-container">
+      <ContentBlock>
         {/* 
           Add 2 props to the Tabs component, 
           
@@ -79,7 +87,7 @@ export default class Content extends Component {
           handleClick={this.handleClick}
         />
         <Cards cards={this.state.cards} />
-      </div>
+      </ContentBlock>
     );
   }
 }
